@@ -98,6 +98,8 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
   const [entries, setEntries] = useState([
     activityEntries[0],
     activityEntries[1],
+    activityEntries[2],
+    activityEntries[3],
   ])
 
   const entriesFromThisActivity = entries.filter(entry => entry.subject === subject.id);
