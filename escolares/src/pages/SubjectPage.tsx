@@ -118,7 +118,7 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Register Data</h2>
+      <h2 className="text-2xl font-bold mb-4">Registrar un nuevo dato</h2>
       {user.role === 'student' && (
         <form onSubmit={handleSubmit} className="mb-8">
           <div className="mb-4">
