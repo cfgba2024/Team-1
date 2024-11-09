@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { UserRole } from '../components/App'
+import { learningResources } from '@/utils/data'
+import { activityEntries } from '@/utils/data'
+import { activityPosts } from '@/utils/data'
 
 interface SubjectPageProps {
     user: { id: number; name: string; role: UserRole, schoolId: number }
@@ -60,11 +63,16 @@ export default function SubjectPage({ user, subjects }: SubjectPageProps) {
 }
 
 function LearningResources({ user, subject }: { user: { role: UserRole }, subject: Subject }) {
+
+  // get resources from utils/data
   const [resources] = useState([
-    { id: 1, title: 'Introduction a la apicultura', type: 'document', subjectId: subject.id},
-    { id: 2, title: 'Ganadería 101', type: 'document', subjectId: subject.id},
-    { id: 3, title: 'Piscicultura para dummies', type: 'video', subjectId: subject.id},
+    learningResources[0],
+    learningResources[1],
+    learningResources[2],
   ])
+
+  // only keep the resources that belong to the current subject
+  const recursos = resources.filter(resource => resource.subjectId === subject.id)
 
   return (
     <div>
@@ -75,7 +83,7 @@ function LearningResources({ user, subject }: { user: { role: UserRole }, subjec
         </button>
       )}
       <ul className="space-y-4">
-        {resources.map(resource => (
+        {recursos.map(resource => (
           <li key={resource.id} className="bg-white shadow rounded-lg p-4">
             <h3 className="text-lg font-semibold">{resource.title}</h3>
             <p className="text-gray-600">Tipo: {resource.type}</p>
@@ -88,8 +96,12 @@ function LearningResources({ user, subject }: { user: { role: UserRole }, subjec
 
 function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Subject }) {
   const [entries, setEntries] = useState([
-    { id: 1, title: 'Cantidad de ovejas', date: '2024-03-15', description: 'La cantidad de ovejas es 10', subject: subject },
+    activityEntries[0],
+    activityEntries[1],
   ])
+
+  const entriesFromThisActivity = entries.filter(entry => entry.subject === subject.id);
+  console.log(entriesFromThisActivity);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -99,7 +111,7 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
     const description = (e.target as HTMLFormElement).elements.namedItem('description') as HTMLInputElement
     setEntries([
       ...entries,
-      { id: entries.length + 1, title: title.value, date: new Date().toISOString(), description: description.value, subject: subject },
+      { id: entries.length + 1, title: title.value, date: new Date().toISOString(), description: description.value, subject: subject.id },
     ])
     
   }
@@ -142,7 +154,7 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
         <h3 className="text-xl font-bold mb-4">Registros de hoy</h3>
         {user.role === 'teacher' ? (
           <div>
-            {entries.map(entry => (
+            {entriesFromThisActivity.map(entry => (
               <div key={entry.id} className="bg-white shadow rounded-lg p-4 mb-4">
                 <h4 className="text-lg font-semibold">{entry.title}</h4>
                 <p className="text-gray-600">{entry.date}</p>
@@ -161,7 +173,7 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
           </div>
         ) : (
           <ul className="space-y-4">
-            {entries.map(entry => (
+            {entriesFromThisActivity.map(entry => (
               <li key={entry.id} className="bg-white shadow rounded-lg p-4">
                 <h4 className="text-lg font-semibold">{entry.title}</h4>
                 <p className="text-gray-600">{entry.date}</p>
@@ -182,11 +194,15 @@ function RegisterData({ user, subject }: { user: { role: UserRole }, subject: Su
 }
 
 function Posts({ user, subject }: { user: { role: UserRole }, subject: Subject }) {
+  
+  
   const [posts] = useState([
-    { id: 1, title: 'Un proyecto para el agua y la alimentación saludable', date: '2024-03-14', description: 'Descripción del post 1...', content: 'Contenido del post 1...'},
-    { id: 2, title: 'Desarrollo ganadero en Buenos Aires', date: '2024-03-13', description: 'Descripción del post 2...', content: 'Contenido del post 2...'},
-    { id: 3, title: 'Análisis de la educación rural en pandemia', date: '2024-03-12', description: 'Descripción del post 3...', content: 'Contenido del post 3...'},
+    activityPosts[0],
+    activityPosts[1],
+    activityPosts[2],
   ])
+
+  const postsForThisActivity = posts.filter(post => post.subject === subject.id);
 
   return (
     <div>
@@ -209,7 +225,7 @@ function Posts({ user, subject }: { user: { role: UserRole }, subject: Subject }
         />
       </div>
       <ul className="space-y-6">
-        {posts.map(post => (
+        {postsForThisActivity.map(post => (
           <li key={post.id} className="bg-white shadow rounded-lg p-6">
             <h3 className="text-xl font-bold mb-2">{post.title}</h3>
             <p className="text-gray-600 mb-4">{post.date}</p>

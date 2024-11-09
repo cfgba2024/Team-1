@@ -36,7 +36,7 @@ export default function TeacherHome({ user, subjects }: TeacherHomeProps) {
         </ul>
       </aside>
       <main className="flex-grow p-8">
-        <h1 className="text-3xl font-bold mb-8">Welcome, {user.name}</h1>
+        <h1 className="text-3xl font-bold mb-8">Bienvenido, {user.name}</h1>
         <p className="text-xl">Elegí una actividad de la lista para manejar sus contenidos.</p>
       </main>
     </div>

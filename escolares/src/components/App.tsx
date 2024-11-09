@@ -9,27 +9,9 @@ import TeacherHome from '../pages/TeacherHome'
 import ParentHome from '../pages/ParentHome'
 import SubjectPage from '../pages/SubjectPage'
 
-// Mock data
-// const schools = [
-//   { id: 1, name: 'School A', province: 'Province 1' },
-//   { id: 2, name: 'School B', province: 'Province 2' },
-// ]
+// import data from utils/data (schools is not imported) 
+import { users, subjects } from '@/utils/data'
 
-const subjects = [
-  { id: 1, name: 'Ganadería', schoolId: 1 },
-  { id: 2, name: 'Apicultura', schoolId: 1 },
-  { id: 3, name: 'Vivero', schoolId: 2 },
-  { id: 4, name: 'Horticultura', schoolId: 2 },
-  { id: 5, name: 'Piscicultura', schoolId: 1 },
-  { id: 6, name: 'Agricultura', schoolId: 2 },
-  { id: 7, name: 'Agroindustria', schoolId: 1 },
-]
-
-const users = [
-  { id: 1, name: 'Juan Alumno', role: 'student', schoolId: 1 },
-  { id: 2, name: 'Juana Profesora', role: 'teacher', schoolId: 1 },
-  { id: 3, name: 'Roberto Padre', role: 'parent' },
-]
 
 export type UserRole = 'student' | 'teacher' | 'parent'
 
